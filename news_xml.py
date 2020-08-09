@@ -10,11 +10,9 @@ root = tree.getroot()
 
 channel_node = root.find('channel')
 
-items_list_title = root.findall('channel/item/title')
 items_list_description = root.findall('channel/item/description')
-items_list_news = items_list_title + items_list_description
 
-for news in items_list_news:
+for news in items_list_description:
     for elem in news.text.split():
         counter[elem] += 1
         dups = {e: count for e, count in counter.items() if count > 0}

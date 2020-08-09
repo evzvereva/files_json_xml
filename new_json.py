@@ -11,7 +11,7 @@ with open('newsafr.json', encoding='utf-8') as f:
 new_list = file_json['rss']['channel']['items']
 
 for new in new_list:
-    list_news = new['description'].split() + new['title'].split()
+    list_news = new['description'].split()
     for elem in list_news:
         counter[elem] += 1
         dups = {e: count for e, count in counter.items() if count > 0}
