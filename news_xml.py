@@ -15,7 +15,7 @@ items_list_description = root.findall('channel/item/description')
 for news in items_list_description:
     for elem in news.text.split():
         counter[elem] += 1
-        dups = {e: count for e, count in counter.items() if count > 0}
+        dups = {e: count for e, count in counter.items()}
 
 sorted_keys = sorted(dups, key=dups.get, reverse=True)
 
