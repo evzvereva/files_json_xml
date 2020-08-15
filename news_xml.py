@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 from collections import defaultdict
-from collections import OrderedDict
+import func
 
 counter = defaultdict(int)
 
@@ -12,26 +12,12 @@ channel_node = root.find('channel')
 
 items_list_description = root.findall('channel/item/description')
 
+list_words = []
 for news in items_list_description:
     for elem in news.text.split():
-        counter[elem] += 1
-        dups = {e: count for e, count in counter.items()}
+        list_words.append(elem)
 
-sorted_keys = sorted(dups, key=dups.get, reverse=True)
-
-dictionary = {}
-
-for keys in sorted_keys:
-    if len(keys) > 6:
-        dictionary[keys] = dups[keys]
-
-output = OrderedDict()
-
-for key, value in dictionary.items():
-    if key not in output:
-        output[key] = value
-        if len(output) == 10:
-            break
-
-for final_key, final_value in output.items():
-    print(f'Слово "{final_key}" повторяется {final_value} раз')
+filtered_words = func.filter_words_6_letters(list_words)
+counted_words = func.count_words(filtered_words)
+result_popular_words = func.popular_words(counted_words)
+func.print_result(result_popular_words)

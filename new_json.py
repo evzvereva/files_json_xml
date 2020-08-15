@@ -1,5 +1,5 @@
 import json
-from collections import Counter
+import func
 
 with open('newsafr.json', encoding='utf-8') as f:
     file_json = json.load(f)
@@ -10,10 +10,7 @@ for key in file_json['rss']['channel']['items']:
     for elem in value:
         list_elem.append(elem)
 
-dictionary_news = {}
-for key_words, count_repetitions in dict(Counter(sorted(list_elem))).items():
-    if len(key_words) > 6:
-        dictionary_news[key_words] = count_repetitions
-
-for x in Counter.most_common(dictionary_news, 10):
-    print(f'Слово "{list(x)[0]}" повторяется {list(x)[1]} раз')
+filtered_words = func.filter_words_6_letters(list_elem)
+counted_words = func.count_words(filtered_words)
+result_popular_words = func.popular_words(counted_words)
+func.print_result(result_popular_words)
